@@ -18,4 +18,12 @@ app.use(express.static("Public"))
 app.use(cookieParser)
 //Comment for changes
 
+//routes import
+
+import userRouter from "./routes/user.routes.js"
+
+// route decleartion 
+app.use("/api/v1/users",userRouter)
+http//:localhost:8000/api/v1/users/register
+
 export default app 
