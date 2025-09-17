@@ -20,13 +20,13 @@ const userSchema = new Schema(
         lowercase:true,
         trim:true,
     },
-    passord:{
+    fullname:{
         type:String,
         required:true,
         trim:true,
         index:true
     },
-     email:{
+    avatar:{
         type:String,// cloudnary url is used
         required:true,
         
@@ -64,7 +64,7 @@ userSchema.pre("save",async function(next){
     if(!this.isModified("password")) return next();
 
 
-    this.passord = bcrypt.hash(this.passord,10)
+    this.password = await bcrypt.hash(this.passord,10)
     next()
 })
 
