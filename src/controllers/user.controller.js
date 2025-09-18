@@ -4,7 +4,7 @@ import {User} from "../models/user.model.js";
 import {uploadoncloudinary} from "../utils/cloudinary.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
 
-const registerUser = asyncHandler( async(req,res)=>{
+const registerUser = asyncHandler( async(req,res,next)=>{
    // get user details from frontend
    // validation - not empty
    // check if user already exist: username,email
@@ -29,7 +29,7 @@ const registerUser = asyncHandler( async(req,res)=>{
     throw new ApiError(400,"all field are compulsory")  
 }
 
- const existed_user=User.findOne({
+ const existed_user=await User.findOne({
     $or:[{username},{email}]
 })
 if(existed_user){
@@ -46,7 +46,7 @@ const avatar =await uploadoncloudinary(avatarLocalPath)
 const coverImage = await uploadoncloudinary(coverImageLocalPath)
 
 if(!avatar){
-   throw new ApiError(400,"avatar path is required") 
+   throw new ApiError(400,"avatar path is required for it ") 
 }
 const user=await User.create({
     fullname,
@@ -68,7 +68,7 @@ if(!createdUser){
 
 return res.status(201).json(
  
-    new ApiResponse(200,createdUser,"user registered sucessfully")
+    new ApiResponse(201,createdUser,"user registered sucessfully")
 
 )
 

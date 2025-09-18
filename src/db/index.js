@@ -10,7 +10,7 @@ console.log("Mongo URI:", process.env.MONGODB_URI);
 
 const connectDB=async()=>{
     try {
-        const connectionInstance=await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
+        const connectionInstance=await mongoose.connect(process.env.MONGODB_URI)
         console.log(`\n mongodb sucessfully connected to DB ${connectionInstance.connection.host}`)
         
     } catch (error) {
@@ -18,7 +18,6 @@ const connectDB=async()=>{
         process.exit(1)
         
     }
-
 }
-connectDB()
-export default connectDB
+
+export default connectDB;
